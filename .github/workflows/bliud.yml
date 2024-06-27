@@ -12,21 +12,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Set up JDK 21
       uses: actions/setup-java@v3
       with:
         java-version: 21
         distribution: 'temurin'
 
-    - name: Cache Gradle wrapper
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.gradle/wrapper/
-          ~/.gradle/caches/
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
-        restore-keys: ${{ runner.os }}-gradle
+    - name: Download Gradle
+      run: |
+        curl -L -o gradle-8.7-bin.zip https://wy.nazhw.com/gradle-8.7-bin.zip
+        mkdir -p $HOME/gradle
+        unzip gradle-8.7-bin.zip -d $HOME/gradle
+
+    - name: Set Gradle home
+      run: echo "GRADLE_HOME=$HOME/gradle/gradle-8.7" >> $GITHUB_ENV
+
+    - name: Add Gradle to PATH
+      run: echo "$HOME/gradle/gradle-8.7/bin" >> $GITHUB_PATH
 
     - name: Setup mohist 1.21
       run: |
