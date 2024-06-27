@@ -19,6 +19,15 @@ jobs:
         java-version: 21
         distribution: 'temurin'
 
+    - name: Cache Gradle wrapper
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/wrapper/
+          ~/.gradle/caches/
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+        restore-keys: ${{ runner.os }}-gradle
+
     - name: Setup mohist 1.21
       run: |
         chmod +x ./gradlew
@@ -27,7 +36,7 @@ jobs:
     - name: Build mohist 1.21
       run: |
         chmod +x ./gradlew
-        ./gradlew mohistJar
+        ./gradlew installerJar
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3
