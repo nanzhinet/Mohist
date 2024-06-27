@@ -23,12 +23,10 @@ jobs:
     - name: Download Gradle using proxy
       run: |
         curl -L -o gradle-8.7-bin.zip https://v.wuyu.email/py/services.gradle.org/distributions/gradle-8.7-bin.zip
-        mkdir -p $HOME/.gradle/wrapper/dists/gradle-8.7-bin/
-        mv gradle-8.7-bin.zip $HOME/.gradle/wrapper/dists/gradle-8.7-bin/
-        unzip -q $HOME/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7-bin.zip -d $HOME/.gradle/wrapper/dists/gradle-8.7-bin/
-
-    - name: Set Gradle home
-      run: echo "GRADLE_USER_HOME=$HOME/.gradle" >> $GITHUB_ENV
+        mkdir -p /home/runner/.gradle/wrapper/dists/gradle-8.7-bin/
+        mv gradle-8.7-bin.zip /home/runner/.gradle/wrapper/dists/gradle-8.7-bin/
+        unzip -q /home/runner/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7-bin.zip -d /home/runner/.gradle/wrapper/dists/gradle-8.7-bin/
+        mv /home/runner/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7 /home/runner/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7-all
 
     - name: Setup mohist 1.21
       run: |
