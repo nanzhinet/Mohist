@@ -11,13 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    
+    - name: Checkout code
+      uses: actions/checkout@v3
+
     - name: Set up JDK 21
       uses: actions/setup-java@v3
       with:
         java-version: 21
         distribution: 'temurin'
+
+    - name: Download Gradle using proxy
+      run: |
+        curl -L -o gradle-8.7-bin.zip https://v.wuyu.email/py/services.gradle.org/distributions/gradle-8.7-bin.zip
+        mkdir -p $HOME/gradle/wrapper/dists
+        mv gradle-8.7-bin.zip $HOME/gradle/wrapper/dists/
+        unzip -d $HOME/gradle/wrapper/dists/ $HOME/gradle/wrapper/dists/gradle-8.7-bin.zip
+        export GRADLE_USER_HOME=$HOME/.gradle
 
     - name: Setup mohist 1.21
       run: |
