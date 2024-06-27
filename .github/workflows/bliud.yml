@@ -24,12 +24,11 @@ jobs:
       run: |
         curl -L -o gradle-8.7-bin.zip https://v.wuyu.email/py/services.gradle.org/distributions/gradle-8.7-bin.zip
         mkdir -p $HOME/.gradle/wrapper/dists/gradle-8.7-bin/
-        unzip gradle-8.7-bin.zip -d $HOME/.gradle/wrapper/dists/gradle-8.7-bin/
-        mv $HOME/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7 $HOME/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7-all
+        mv gradle-8.7-bin.zip $HOME/.gradle/wrapper/dists/gradle-8.7-bin/
+        unzip -q $HOME/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7-bin.zip -d $HOME/.gradle/wrapper/dists/gradle-8.7-bin/
 
-    - name: Configure Gradle to use local distribution
-      run: |
-        sed -i 's|distributionUrl=.*|distributionUrl=file://$HOME/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7-all|' gradle/wrapper/gradle-wrapper.properties
+    - name: Set Gradle home
+      run: echo "GRADLE_USER_HOME=$HOME/.gradle" >> $GITHUB_ENV
 
     - name: Setup mohist 1.21
       run: |
