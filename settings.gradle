@@ -8,7 +8,7 @@ pluginManagement {
         maven { url = 'https://maven.mohistmc.com/' }
         maven { url = 'https://maven.izzel.io/releases' }
         maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi' }
-        maven { url = 'https://v.wuyu.email/py/plugins.gradle.org/m2/' }
+        maven { url = 'https://plugins.gradle.org/m2/' }
     }
 }
 
