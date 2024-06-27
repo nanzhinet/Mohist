@@ -22,11 +22,14 @@ jobs:
 
     - name: Download Gradle using proxy
       run: |
-        curl -L -o gradle-8.7-bin.zip https://v.wuyu.email/py/services.gradle.org/distributions/gradle-8.7-bin.zip
-        mkdir -p $HOME/gradle/wrapper/dists
-        mv gradle-8.7-bin.zip $HOME/gradle/wrapper/dists/
-        unzip -d $HOME/gradle/wrapper/dists/ $HOME/gradle/wrapper/dists/gradle-8.7-bin.zip
-        export GRADLE_USER_HOME=$HOME/.gradle
+        curl -L -o gradle-8.7-bin.zip https://www.20520520.xyz/gradle-8.7-bin.zip
+        mkdir -p $HOME/.gradle/wrapper/dists/gradle-8.7-bin/
+        unzip gradle-8.7-bin.zip -d $HOME/.gradle/wrapper/dists/gradle-8.7-bin/
+        mv $HOME/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7 $HOME/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7-all
+
+    - name: Configure Gradle to use local distribution
+      run: |
+        sed -i 's|distributionUrl=.*|distributionUrl=file://$HOME/.gradle/wrapper/dists/gradle-8.7-bin/gradle-8.7-all|' gradle/wrapper/gradle-wrapper.properties
 
     - name: Setup mohist 1.21
       run: |
